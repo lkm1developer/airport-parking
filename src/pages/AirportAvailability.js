@@ -145,7 +145,7 @@ const AirportAvailability = () => {
                 </div>
                 <div className="col-lg p-0 map-section">
                     <section id="map_container" className="">
-                        <img src="/assets/map.png" />
+                        <img src={`${process.env.PUBLIC_URL}/assets/map.png`} />
                     </section>
                 </div>
             </div>
