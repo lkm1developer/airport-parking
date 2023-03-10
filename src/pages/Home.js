@@ -21,7 +21,7 @@ const SearchForm = () => {
         try {
             const { data, status } = await axios.get('http://43.205.1.85:9009/v1/airports');
             if (status === 200 && data) {
-                setAirports(data?.results ?? [])
+                setAirports(data && data.results ? data.results : [])
             } else {
                 setAirports([])
             }
@@ -46,7 +46,7 @@ const SearchForm = () => {
             setErrors((err) => ({ ...err, departureAirport: true }))
         }
         const filterAirportsData = airports.filter((airport) => airport.name.toLowerCase().includes(e.target.value.toLowerCase()));
-        setFilteredAirports(filterAirportsData ?? [])
+        setFilteredAirports(filterAirportsData ? filterAirportsData : [])
     }
 
     const handleChangeCheckIn = (e) => {
