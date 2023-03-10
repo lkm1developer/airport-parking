@@ -1,11 +1,11 @@
 
 import React from 'react';
+import { Routes, Route,BrowserRouter } from "react-router-dom";
 import './style.css';
 import HomePage from './pages/Home';
 import Layout from './component/Layout';
 import Login from './pages/Login';
 import AirportAvailability from './pages/AirportAvailability';
-import { Routes, Route,BrowserRouter } from "react-router-dom";
 
 
 function App() {
