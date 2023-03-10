@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
-import AirportSuggetions from '../component/AirportSuggestions';
-
+import moment from 'moment'
 import axios from 'axios';
+import AirportSuggetions from '../component/AirportSuggestions';
 
 
 const SearchForm = () => {
     const today = moment().format('YYYY-MM-DD').toString()
     const tomorrow = moment().add(1, 'days').format('YYYY-MM-DD').toString()
+    const [loading, setLoading] = useState(true)
     const [airports, setAirports] = useState([])
     const [filteredAirports, setFilteredAirports] = useState([])
     const [departureAirport, setDepartureAirPort] = useState('')
@@ -17,20 +17,24 @@ const SearchForm = () => {
 
 
     const getAirport = async () => {
+        
         try {
-            const { data, status } = await axios.get('http://localhost:9009/v1/airports');
+            const { data, status } = await axios.get('http://43.205.1.85:9009/v1/airports');
             if (status === 200 && data) {
-                setAirports(data.results)
+                setAirports(data?.results ?? [])
             } else {
                 setAirports([])
             }
+            setLoading(false)
         } catch (error) {
-            alert(error.message)
+            setLoading(false)
+            console.log(error.message)
         }
     }
 
     useEffect(() => {
-        // getAirport()
+        
+        getAirport()
     }, [])
 
     const handleChangeDepartureAirport = (e) => {
@@ -42,7 +46,7 @@ const SearchForm = () => {
             setErrors((err) => ({ ...err, departureAirport: true }))
         }
         const filterAirportsData = airports.filter((airport) => airport.name.toLowerCase().includes(e.target.value.toLowerCase()));
-        setFilteredAirports(filterAirportsData )
+        setFilteredAirports(filterAirportsData ?? [])
     }
 
     const handleChangeCheckIn = (e) => {
@@ -110,6 +114,7 @@ const SearchForm = () => {
                     </div>
                 </div>
             </div>
+            {loading && <h3>loading..</h3>}
             <form >
                 <div className="options row m-0"><label className="col-12 col-xl-3 p-0 mr-xl-3 mb-2">
                     <div className="heading mb-1">Departure Airport</div>
@@ -128,7 +133,7 @@ const SearchForm = () => {
                                 onChange={handleChangeCheckIn}
                                 name="checkin"
                                 type="date"
-                                placeholder="Parking Check-Out"
+                                placeholder="Parking Check-In"
                                 className="placeholder placeholder-airport"
                                 style={{ width: "100%" }}
 
@@ -192,7 +197,7 @@ const HomePage = (props) => {
 
                             <ul className="row">
                                 <li className="col-12 col-lg-4 p-3">
-                                    <img src={`${process.env.PUBLIC_URL}/assets/check.png`} alt="Tick" width="50" height="50" />
+                                    <img src="/assets/check.png" alt="Tick" width="50" height="50" />
                                     <div>
                                         <h6>Save Money</h6>
                                         <p>Save up to 70% off on our site compared to the cost of on-airport
@@ -200,7 +205,7 @@ const HomePage = (props) => {
                                     </div>
                                 </li>
                                 <li className="col-12 col-lg-4 p-3">
-                                    <img src={`${process.env.PUBLIC_URL}/assets/check.png`} alt="Tick" width="50" height="50" />
+                                    <img src="/assets/check.png" alt="Tick" width="50" height="50" />
                                     <div>
                                         <h6>Save Time</h6>
                                         <p>
@@ -210,7 +215,7 @@ const HomePage = (props) => {
                                     </div>
                                 </li>
                                 <li className="col-12 col-lg-4 p-3">
-                                    <img src={`${process.env.PUBLIC_URL}/assets/check.png`} alt="Tick" width="50" height="50" />
+                                    <img src="/assets/check.png" alt="Tick" width="50" height="50" />
                                     <div>
                                         <h6>Save Stress</h6>
                                         <p>

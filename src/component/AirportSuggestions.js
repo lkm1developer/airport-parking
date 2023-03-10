@@ -14,7 +14,7 @@ const AirportSuggetions = ({airports=[],selectAirport}) => {
           }}>
             <ul>
                 {airports.map((airport)=>(
-                    <li key={airport.id} className="suggestion-list" style={{
+                    <li  key={airport.id} className="suggestion-list" style={{
                             listStyle: 'none',
                             padding: '10px 0px',
                             borderBottom: '1px solid',
