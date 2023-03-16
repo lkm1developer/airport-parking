@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment'
 import axios from 'axios';
-import AirportSuggetions from '../component/AirportSuggestions';
+import AirportSuggetions from '../components/AirportSuggestions';
 
 
 const SearchForm = () => {
@@ -19,7 +19,7 @@ const SearchForm = () => {
     const getAirport = async () => {
         
         try {
-            const { data, status } = await axios.get('https://b71d-122-102-29-244.in.ngrok.io/v1/airports');
+            const { data, status } = await axios.get('https://rl.talentcoco.in/v1/airports');
             if (status === 200 && data) {
                 setAirports(data && data.results ? data.results : [])
             } else {
